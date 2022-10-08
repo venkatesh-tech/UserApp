@@ -18,8 +18,11 @@ public class CreateUserServlet extends HttpServlet {
 	public void init() { // Called only once
 
 		try {
+			Class.forName("com.mysql.jdbc.driver");
 			connection = DriverManager.getConnection("jdbc:mysql://localhost/mydb", "root", "Venky1234@");
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
