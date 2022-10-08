@@ -3,21 +3,21 @@ package com.user.servlets;
 import java.io.*;
 import java.sql.*;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+import javax.servlet.*;
 import javax.servlet.http.*;
 
-@WebServlet("/readServlet")
+//@WebServlet("/readServlet")
 public class ReadUsersServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection connection;
 
-	public void init() { // Called only once
+	public void init(ServletConfig config) { // Called only once
 
 		try {
 			System.out.println("init");
 			Class.forName("com.mysql.cj.jdbc.Driver"); // Required for tomact
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/mydb", "root", "Venky1234@");
+			connection = DriverManager.getConnection(config.getInitParameter("dbUrl"),
+					config.getInitParameter("dbUser"), config.getInitParameter("dbPassword"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
