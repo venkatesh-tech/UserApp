@@ -7,8 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
-@WebServlet("/addServlet")
-public class CreateUserServlet extends HttpServlet {
+@WebServlet("/updateServlet")
+public class UpdateUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection connection;
 
@@ -27,19 +27,17 @@ public class CreateUserServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String firstName = request.getParameter("firstName");
-		String lastName = request.getParameter("lastName");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 
 		try {
 			Statement statement = connection.createStatement(); // Creation of statement
-			int result1 = statement.executeUpdate("insert into user values('" + firstName + "','" + lastName + "','"
-					+ email + "','" + password + "')");
+			int result1 = statement
+					.executeUpdate("update user set password='" + password + "'where email='" + email + "'");
 
 			PrintWriter out = response.getWriter();
 			if (result1 > 0) { // result1 gives integer values
-				out.print("<h1>User Created</h1>");
+				out.print("<h1>Password Updated</h1>");
 			} else {
 				out.print("<h1>Error creating the user</h1>");
 			}
