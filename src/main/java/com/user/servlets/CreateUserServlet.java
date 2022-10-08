@@ -4,10 +4,13 @@ import java.io.*;
 import java.sql.*;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
-@WebServlet("/addServlet")
+@WebServlet(urlPatterns = "/addServlet", initParams = {
+		@WebInitParam(name = "dbUrl", value = "jdbc:mysql://localhost/mydb"),
+		@WebInitParam(name = "dbUser", value = "root")
+		@WebInitParam(name = "dbPassword",value = "Venky1234@")})
 public class CreateUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection connection;
