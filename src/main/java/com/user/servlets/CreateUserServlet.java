@@ -1,6 +1,6 @@
 package com.user.servlets;
 
-import java.io.IOException;
+import java.io.*;
 import java.sql.*;
 
 import javax.servlet.ServletException;
@@ -18,7 +18,7 @@ public class CreateUserServlet extends HttpServlet {
 	public void init() { // Called only once
 
 		try {
-			Class.forName("com.mysql.jdbc.driver");
+			Class.forName("com.mysql.jdbc.driver"); // Required for tomact
 			connection = DriverManager.getConnection("jdbc:mysql://localhost/mydb", "root", "Venky1234@");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -29,7 +29,28 @@ public class CreateUserServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
+		String firstName = request.getParameter("firstName");
+		String lastName = request.getParameter("lastName");
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+
+		try {
+			Statement statement = connection.createStatement(); // Creation of statement
+			int result1 = statement.executeUpdate("insert into user values('" + firstName + "','" + lastName + "','"
+					+ email + "','" + password + "')");
+
+			PrintWriter out = response.getWriter();
+			if (result1 > 0) { // result1 gives integer values
+				out.print("<h1>User Created</h1>");
+			} else {
+				out.print("<h1>Error creating the user</h1>");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 		doGet(request, response);
 	}
 
