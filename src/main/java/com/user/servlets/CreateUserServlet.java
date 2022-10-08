@@ -3,23 +3,23 @@ package com.user.servlets;
 import java.io.*;
 import java.sql.*;
 
-import javax.servlet.ServletException;
+import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
 @WebServlet(urlPatterns = "/addServlet", initParams = {
 		@WebInitParam(name = "dbUrl", value = "jdbc:mysql://localhost/mydb"),
-		@WebInitParam(name = "dbUser", value = "root")
-		@WebInitParam(name = "dbPassword",value = "Venky1234@")})
+		@WebInitParam(name = "dbUser", value = "root"), @WebInitParam(name = "dbPassword", value = "Venky1234@") })
 public class CreateUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection connection;
 
-	public void init() { // Called only once
+	public void init(ServletConfig config) { // Called only once
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver"); // Required for tomact
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/mydb", "root", "Venky1234@");
+			connection = DriverManager.getConnection(config.getInitParameter("dbUrl"),
+					config.getInitParameter("dbUser"), config.getInitParameter("dbPassword"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
