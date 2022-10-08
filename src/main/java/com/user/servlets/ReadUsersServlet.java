@@ -34,6 +34,20 @@ public class ReadUsersServlet extends HttpServlet {
 			ResultSet resultSet = statement.executeQuery("select * from user");
 			PrintWriter out = response.getWriter();
 
+			out.print("<table>");
+			out.print("<tr>");
+			out.print("<th>");
+			out.print("First Name");
+			out.print("</th>");
+			out.print("<th>");
+			out.print("Last Name");
+			out.print("</th>");
+			out.print("<th>");
+			out.print("Email");
+			out.print("</th>");
+			out.print("</tr>");
+			out.print("</table>");
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
