@@ -25,9 +25,9 @@ public class ReadUsersServlet extends HttpServlet {
 		}
 	}
 
-	protected void service(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) // doGet is ued to get info
 			throws ServletException, IOException {
-		System.out.println("doPost");
+		System.out.println("doGet");
 
 		try {
 			Statement statement = connection.createStatement(); // Creation of statement
