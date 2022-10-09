@@ -10,9 +10,26 @@
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
   
+  <!-- Accessible throughout the application -->
+  <context-param>
+  		<param-name>dbUrl</param-name>
+  		<param-value>jdbc:mysql://localhost/mydb</param-value>
+  	</context-param>
+  	<context-param>
+  		<param-name>dbUser</param-name>
+  		<param-value>root</param-value>
+  	</context-param>
+  	<context-param>
+  		<param-name>dbPassword</param-name>
+  		<param-value>Venky1234@</param-value>
+  	</context-param>
+  
   <servlet>
   	<servlet-name>ReadUsersServlet</servlet-name>
   	<servlet-class>com.user.servlets.ReadUsersServlet</servlet-class>
+  	
+  	<!-- Accessible only to that servlet -->
+  	<!-- 
   	<init-param>
   		<param-name>dbUrl</param-name>
   		<param-value>jdbc:mysql://localhost/mydb</param-value>
@@ -25,6 +42,8 @@
   		<param-name>dbPassword</param-name>
   		<param-value>Venky1234@</param-value>
   	</init-param>
+  	 -->
+  	 
   </servlet>
   <servlet-mapping>
   	  <servlet-name>ReadUsersServlet</servlet-name>

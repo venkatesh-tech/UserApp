@@ -2,14 +2,13 @@ package com.user.servlets;
 
 import java.io.*;
 import java.sql.*;
+import java.util.Enumeration;
 
 import javax.servlet.*;
-import javax.servlet.annotation.*;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
-@WebServlet(urlPatterns = "/addServlet", initParams = {
-		@WebInitParam(name = "dbUrl", value = "jdbc:mysql://localhost/mydb"),
-		@WebInitParam(name = "dbUser", value = "root"), @WebInitParam(name = "dbPassword", value = "Venky1234@") })
+@WebServlet(urlPatterns = "/addServlet")
 public class CreateUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection connection;
@@ -17,9 +16,20 @@ public class CreateUserServlet extends HttpServlet {
 	public void init(ServletConfig config) { // Called only once
 
 		try {
+			ServletContext context = config.getServletContext();
+			System.out.println("init");
+
+			Enumeration<String> parameterNames = context.getInitParameterNames();
+			while (parameterNames.hasMoreElements()) {
+				String eachName = parameterNames.nextElement();
+				System.out.println("context param name: " + eachName);
+				System.out.println("context param value: " + context.getInitParameter(eachName));
+
+			}
+
 			Class.forName("com.mysql.cj.jdbc.Driver"); // Required for tomact
-			connection = DriverManager.getConnection(config.getInitParameter("dbUrl"),
-					config.getInitParameter("dbUser"), config.getInitParameter("dbPassword"));
+			connection = DriverManager.getConnection(context.getInitParameter("dbUrl"),
+					context.getInitParameter("dbUser"), context.getInitParameter("dbPassword"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {

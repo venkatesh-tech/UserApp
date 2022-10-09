@@ -14,10 +14,11 @@ public class ReadUsersServlet extends HttpServlet {
 	public void init(ServletConfig config) { // Called only once
 
 		try {
+			ServletContext context = config.getServletContext();
 			System.out.println("init");
 			Class.forName("com.mysql.cj.jdbc.Driver"); // Required for tomact
-			connection = DriverManager.getConnection(config.getInitParameter("dbUrl"),
-					config.getInitParameter("dbUser"), config.getInitParameter("dbPassword"));
+			connection = DriverManager.getConnection(context.getInitParameter("dbUrl"),
+					context.getInitParameter("dbUser"), context.getInitParameter("dbPassword"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
